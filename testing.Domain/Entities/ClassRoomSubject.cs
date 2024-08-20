@@ -13,9 +13,11 @@ namespace testing.Domain.Entities
         public int Id { get; set; }
         public int SubjectId { get; set; }
         public int DegreeId { get; set; }
-        public DateTime HourBegin { get; set; }
-        public DateTime HourFinish { get; set; }
-        public DateTime Day { get; set; }
+        [Column(TypeName = "time")]
+        public TimeSpan HourBegin { get; set; }
+        [Column(TypeName = "time")]
+        public TimeSpan HourFinish { get; set; }
+        public int Day { get; set; }
         public Subject Subject { get; set; }
         public ClassRoom ClassRoom { get; set; }
     }
