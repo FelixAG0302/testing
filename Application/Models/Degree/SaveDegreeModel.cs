@@ -8,5 +8,8 @@ namespace testing.Application.Models.Degree
 {
     public class SaveDegreeModel
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

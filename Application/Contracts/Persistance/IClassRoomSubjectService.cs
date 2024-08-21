@@ -1,6 +1,6 @@
 ﻿
 using testing.Application.Core;
-using testing.Application.Models.SubEntitie;
+using testing.Application.Models.ClassroomSubject;
 
 namespace testing.Application.Contracts.Persistance
 {

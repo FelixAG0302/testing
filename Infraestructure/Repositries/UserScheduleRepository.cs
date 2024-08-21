@@ -22,30 +22,29 @@ namespace testing.Infraestructure.Repositries
 
         public override async Task<List<UserSchedule>> GetAllAsync()
         {
-            return await _context.Schedules.Include(u => u.Teacher).Include(u => u.Subject).ToListAsync();
+            return await _context.Schedules.Include(u => u.ClassRoomSubject).ToListAsync();
         }
 
         public override async Task<UserSchedule> GetByIdAsync(int id)
         {
 
-            return await _context.Schedules.Include(u => u.Teacher).Include(u => u.Subject).Where(u => u.Id == id).FirstOrDefaultAsync();
+            return await _context.Schedules.Include(u => u.ClassRoomSubject).Where(u => u.Id == id).FirstOrDefaultAsync();
         }
 
-        public override async Task UpdateAsync(UserSchedule entity)
+        public override async Task<bool> UpdateAsync(UserSchedule entity)
         {
             try
             {
-                if (!await base.ExitsAsync(u => u.Id == entity.Id)) return;
+                if (!await base.ExitsAsync(u => u.Id == entity.Id)) return false;
 
                 UserSchedule userScheduleToBeUpdated = await _context.Schedules.FindAsync(entity.Id);
 
-                userScheduleToBeUpdated.SubjectId = entity.SubjectId;
-                userScheduleToBeUpdated.TeacherId = entity.TeacherId;
-                await base.UpdateAsync(userScheduleToBeUpdated);
+                userScheduleToBeUpdated.ClassRoomSubject = entity.ClassRoomSubject;
+                return await base.UpdateAsync(userScheduleToBeUpdated);
             }
             catch
             {
-                throw;
+                return false;
             }
         }
     }

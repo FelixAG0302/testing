@@ -15,7 +15,7 @@ namespace testing.Application.Core
             _baseRepository = baseRepository;
             _mapper = mapper;
         }   
-        public async Task<Result> SaveAsync(TSaveModel entity)
+        public virtual async Task<Result> SaveAsync(TSaveModel entity)
         {
             Result result = new();
             try
@@ -41,7 +41,7 @@ namespace testing.Application.Core
                 return result;
             }
         }
-        public async Task<Result> DeleteAsync(int Id)
+        public virtual async Task<Result> DeleteAsync(int Id)
         {
             Result result = new();
             try
@@ -80,7 +80,7 @@ namespace testing.Application.Core
             _mapper = mapper;
         }
 
-        public async Task<Result<List<TModel>>> GetAllAsync()
+        public virtual async Task<Result<List<TModel>>> GetAllAsync()
         {
             Result<List<TModel>> result = new();
             try
@@ -98,14 +98,59 @@ namespace testing.Application.Core
             }
         }
 
-        public Task<Result<TModel>> GetByIdAsync(int id)
+        public virtual async Task<Result<TModel>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            Result<TModel> result = new();
+            try
+            {
+                if (id == default || id < 0)
+                {
+                    result.IsSuccess = false;
+                    result.Message = "The id is null";
+                    return result;
+                }
+                TEntity entityGetted = await _baseRepository.GetByIdAsync(id);
+                if (entityGetted == null)
+                {
+                    result.IsSuccess = false;
+                    result.Message = "The entity wasn't found";
+                    return result;
+                }
+                result.Data = _mapper.Map<TModel>(entityGetted);
+                result.Message = "The search was successfull";
+                return result;
+            }
+            catch
+            {
+                result.IsSuccess = false;
+                result.Message = "Crticial error while getting by id";
+                return result;
+            }
         }
 
-        public Task<Result> UpdateAsync(TSaveModel entity)
+        public virtual async Task<Result> UpdateAsync(TSaveModel entity)
         {
-            throw new NotImplementedException();
+            Result result = new();
+            try
+            {
+                if (entity == null)
+                {
+                    result.IsSuccess = false;
+                    result.Message = "The entity is null";
+                    return result;
+                }
+                TEntity entityForUpdate = _mapper.Map<TEntity>(entity);
+                await _baseRepository.UpdateAsync(entityForUpdate);
+                result.Message = "The update was successfull";
+                return result;
+
+            }
+            catch
+            {
+                result.IsSuccess = false;
+                result.Message = "Critical error";
+                return result;
+            }
         }
     }
 }

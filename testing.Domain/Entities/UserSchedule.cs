@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace testing.Domain.Entities
 {
@@ -12,13 +9,8 @@ namespace testing.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string UserId { get; set; }
-        public int SubjectId {  get; set; }
-        public int TeacherId { get; set; }
-
-
-        [ForeignKey("SubjectId")]
-        public Subject Subject { get; set; }
-        [ForeignKey("TeacherId")]
-        public Teacher Teacher { get; set; }
+        public int ClassRoomSubjectId { get; set; }
+        [ForeignKey("ClassRoomSubjectId")]
+        public ClassRoomSubject ClassRoomSubject { get; set; }
     }
 }

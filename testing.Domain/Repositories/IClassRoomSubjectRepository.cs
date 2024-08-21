@@ -4,7 +4,7 @@ using testing.Domain.Entities;
 
 namespace testing.Domain.Repositories
 {
-    public interface IClassRoomSubjectRepository : IBaseRepository<ClassRoomSubject>
+    public interface IClassRoomSubjectRepository : IBaseCompleteRepository<ClassRoomSubject>
     {
     }
 }

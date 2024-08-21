@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using testing.Application.Core;
-using testing.Application.Models.SubEntitie;
+using testing.Application.Models.TeacherSubject;
 
 namespace testing.Application.Contracts.Persistance
 {

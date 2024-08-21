@@ -28,5 +28,24 @@ namespace testing.Infraestructure.Repositries
         {
             return await base.GetAllAsync();
         }
+
+        public override async Task<bool> UpdateAsync(Subject entity)
+        {
+            try
+            {
+                if (!await base.ExitsAsync(i => i.Id == entity.Id)) return false;
+                
+                Subject subjectToBeUpdate = await _context.Subject.FindAsync(entity.Id);
+
+                subjectToBeUpdate.Description = entity.Description;
+
+                return await base.UpdateAsync(entity);
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
     }
 }

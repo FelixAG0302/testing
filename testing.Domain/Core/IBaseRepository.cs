@@ -10,7 +10,7 @@ namespace testing.Domain.Core
     public interface IBaseRepository<TEntity> where TEntity : class
     {
         Task<bool> ExitsAsync(Expression<Func<TEntity, bool>> filter);
-        Task SaveAsync(TEntity entity);
+        Task<bool> SaveAsync(TEntity entity);
         Task<bool> DeleteAsync(int Id);
     }
     public interface IBaseCompleteRepository<TEntity>  : IBaseRepository<TEntity>
@@ -18,6 +18,6 @@ namespace testing.Domain.Core
     {
         Task<List<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(int id);   
-        Task UpdateAsync(TEntity entity);
+        Task<bool> UpdateAsync(TEntity entity);
     }
 }

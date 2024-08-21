@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace testing.Domain.Entities
 {
@@ -13,8 +10,9 @@ namespace testing.Domain.Entities
         public int Id { get; set; }
         public int SubjectId { get; set; }
         public int TecherId { get; set; }
-
+        [ForeignKey("SubjectId")]
         public Subject Subject { get; set; }
+        [ForeignKey("TecherId")]
         public Teacher Teacher { get; set; }
     }
 }

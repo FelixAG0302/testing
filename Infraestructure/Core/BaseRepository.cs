@@ -19,16 +19,17 @@ namespace Infraestructure.Core
         {
             return await _entities.AnyAsync(filter);
         }
-        public virtual async Task SaveAsync(TEntity entity)
+        public virtual async Task<bool> SaveAsync(TEntity entity)
         {
             try
             {
                 _entities.Add(entity);
                 await _context.SaveChangesAsync();
+                return true;
             }
             catch 
             {
-                throw;
+                return false;
             }
         }
 
@@ -76,17 +77,18 @@ namespace Infraestructure.Core
             return await _entities.FindAsync(id);
         }
 
-        public virtual async Task UpdateAsync(TEntity entity)
+        public virtual async Task<bool> UpdateAsync(TEntity entity)
         {
             try
             {
                 _entities.Attach(entity);
                 _entities.Entry(entity).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
+                return true;
             }
             catch
             {
-                throw;
+                return false;
             }
         }
     }

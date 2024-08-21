@@ -16,7 +16,7 @@ namespace testing.Infraestructure.Repositries
     {
         private readonly AplicationContext _context;
 
-        public TeacherRepository(AplicationContext context) : base (context)
+        public TeacherRepository(AplicationContext context) : base(context)
         {
             _context = context;
         }
@@ -36,16 +36,16 @@ namespace testing.Infraestructure.Repositries
             return await _context.Teachers.Include(s => s.Subjects).FirstOrDefaultAsync();
         }
 
-        public override Task SaveAsync(Teacher entity)
+        public override Task<bool> SaveAsync(Teacher entity)
         {
             return base.SaveAsync(entity);
         }
 
-        public override async Task UpdateAsync(Teacher entity)
+        public override async Task<bool> UpdateAsync(Teacher entity)
         {
-            try 
+            try
             {
-                if (!await base.ExitsAsync(i => i.Id == entity.Id)) return;
+                if (!await base.ExitsAsync(i => i.Id == entity.Id)) return false;
 
                 Teacher teacherToBeUpdate = await _context.Teachers.FindAsync(entity.Id);
 
@@ -55,11 +55,11 @@ namespace testing.Infraestructure.Repositries
                 teacherToBeUpdate.Phone = entity.Phone;
                 teacherToBeUpdate.Salary = entity.Salary;
                 teacherToBeUpdate.IsOnVacation = entity.IsOnVacation;
-                await base.UpdateAsync(teacherToBeUpdate);
+                return await base.UpdateAsync(teacherToBeUpdate);
             }
-            catch 
+            catch
             {
-                throw;
+                return false;
             }
         }
     }
