@@ -27,6 +27,7 @@ namespace testing.Infraestructure.Extensions
             services.AddTransient<ITeacherRepository, TeacherRepository>();
             services.AddTransient<ITeacherSubjectRepository, TeacherSubjectRepository>();
             services.AddTransient<IUserScheduleRepository, UserScheduleRepository>();
+            services.AddTransient<IUserScheduleSectionRepository, UserScheduleSectionRepository>();
 
         }
     }

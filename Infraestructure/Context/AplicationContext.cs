@@ -28,16 +28,15 @@ namespace Infraestructure.Context
         {
             
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=IBSCOMP124; user Id=sa; password=biblia01**;  Database=testingApplication; TrustServerCertificate=true;", m => m.MigrationsAssembly(typeof(AplicationContext).Assembly.FullName));
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UserSchedule>( u =>
-            {
-                u.HasKey(u => u.Id);
-               
-            });
         }
     }
 }
