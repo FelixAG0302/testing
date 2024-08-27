@@ -11,6 +11,6 @@ namespace testing.Domain.Entities
         public string UserId { get; set; }
         public int ClassRoomSubjectId { get; set; }
         [ForeignKey("ClassRoomSubjectId")]
-        public ClassRoomSubject ClassRoomSubject { get; set; }
+        public IList<ClassRoomSubject> ClassRoomSubject { get; set; }
     }
 }

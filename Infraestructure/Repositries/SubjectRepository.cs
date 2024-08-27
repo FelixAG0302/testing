@@ -1,5 +1,6 @@
 ﻿using Infraestructure.Context;
 using Infraestructure.Core;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace testing.Infraestructure.Repositries
         {
             return await base.GetAllAsync();
         }
+
+  
 
         public override async Task<bool> UpdateAsync(Subject entity)
         {

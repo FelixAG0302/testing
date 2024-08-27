@@ -9,10 +9,9 @@ namespace testing.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int SubjectId { get; set; }
-        public int TecherId { get; set; }
+        public string TecherId { get; set; }
         [ForeignKey("SubjectId")]
         public Subject Subject { get; set; }
-        [ForeignKey("TecherId")]
-        public Teacher Teacher { get; set; }
+
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using testing.Domain.Entities;
+﻿
+using testing.Application.Models.UserScheduleSection;
+
 
 namespace testing.Application.Models.UserSchedule
 {
@@ -12,6 +8,6 @@ namespace testing.Application.Models.UserSchedule
     {
         public int Id { get; set; }
         public string UserId { get; set; }
-        public int ClassRoomSubjectId { get; set; }
+        public List<SaveUserScheduleSectionModel> sections { get; set; }
     }
 }

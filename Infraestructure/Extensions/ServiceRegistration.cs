@@ -24,7 +24,6 @@ namespace testing.Infraestructure.Extensions
             services.AddTransient<IDegreeRepository, DegreeRepository>();
             services.AddTransient<IDegreeSubjectRepository, DegreeSubjectRepository>();
             services.AddTransient<ISubjectRepository, SubjectRepository>();
-            services.AddTransient<ITeacherRepository, TeacherRepository>();
             services.AddTransient<ITeacherSubjectRepository, TeacherSubjectRepository>();
             services.AddTransient<IUserScheduleRepository, UserScheduleRepository>();
             services.AddTransient<IUserScheduleSectionRepository, UserScheduleSectionRepository>();
@@ -32,3 +31,4 @@ namespace testing.Infraestructure.Extensions
         }
     }
 }
+

@@ -11,7 +11,6 @@ namespace Infraestructure.Context
     public class AplicationContext : DbContext
     {
         public DbSet<UserSchedule> Schedules { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
         public DbSet<TeacherSubject> TeacherSubject { get; set; }
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Degree> Degree { get; set; }

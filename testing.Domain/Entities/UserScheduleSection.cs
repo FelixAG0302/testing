@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace testing.Domain.Entities
 {
     public class UserScheduleSection
-    { 
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } 
         public int UserScheduleId { get; set; }
         public int ClassRoomSubjectId { get; set; }

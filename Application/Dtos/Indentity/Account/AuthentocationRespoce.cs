@@ -8,5 +8,6 @@ namespace testing.Application.Dtos.Indentity.Account
 {
     public class AuthentocationRespoce
     {
+        public string Id { get; set; }
     }
 }

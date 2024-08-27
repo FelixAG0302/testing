@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using testing.Application.Models.Subject;
-using testing.Application.Models.Teacher;
+using testing.Application.Models.Users.Teacher;
 
 namespace testing.Application.Models.TeacherSubject
 {

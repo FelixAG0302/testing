@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using testing.Application.Models.ClassRoom;
 using testing.Application.Models.Subject;
-using testing.Application.Models.Teacher;
+using testing.Application.Models.Users.Teacher;
 
 namespace testing.Application.Models.ClassroomSubject
 {

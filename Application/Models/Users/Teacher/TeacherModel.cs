@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using testing.Application.Models.TeacherSubject;
 
-namespace testing.Application.Models.Teacher
+namespace testing.Application.Models.Users.Teacher
 {
     public class TeacherModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Cedula { get; set; }

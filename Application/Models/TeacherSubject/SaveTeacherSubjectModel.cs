@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using testing.Application.Models.Subject;
-using testing.Application.Models.Teacher;
 
 namespace testing.Application.Models.TeacherSubject
 {

@@ -25,6 +25,11 @@ namespace testing.Infraestructure.Repositries
             return await _context.Schedules.Include(u => u.ClassRoomSubject).ToListAsync();
         }
 
+        public async Task<List<UserSchedule>> GetAllByUserIdAsync(string id)
+        {
+            return await _context.Schedules.Include(s => s.ClassRoomSubject).Where(s => s.UserId == id).ToListAsync();
+        }
+
         public override async Task<UserSchedule> GetByIdAsync(int id)
         {
 
