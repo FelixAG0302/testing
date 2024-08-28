@@ -16,11 +16,11 @@ namespace testing.Identity.Seeds
                 LastName = "DefaultLastName",
                 PhoneNumber = "1234567890",
                 Cedula = "40245785047",
-                Email = "DefaultEmail@gmail.com",
-                UserName = "DefaultUser",
+                Email = "DefaultEmailAdmin@gmail.com",
+                UserName = "DefaultAdmin",
             };
 
-            if (!await userManager.Users.AnyAsync(u => u.Email == DefaultAdmin.Email))
+            if (!await userManager.Users.AnyAsync(u => u.Id == DefaultAdmin.Id))
             {
                 ApplicationUser userWithSameCredentials = await userManager.FindByEmailAsync(DefaultAdmin.Email) 
                     ?? await userManager.FindByNameAsync(DefaultAdmin.UserName);
@@ -31,6 +31,7 @@ namespace testing.Identity.Seeds
                     await userManager.AddToRoleAsync(DefaultAdmin, nameof(Roles.Admin));
                 }
             }
+            
         }
     }
 }
