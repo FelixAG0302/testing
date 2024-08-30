@@ -4,7 +4,7 @@ using testing.Application.Core;
 using testing.Application.Models.ClassRoom;
 using testing.Application.Models.ClassroomSubject;
 using testing.Domain.Entities;
-using testing.Domain.Repositories;
+using testing.Domain.Repositories.Persistance;
 
 namespace testing.Application.Services.Persistance
 {

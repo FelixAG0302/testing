@@ -8,7 +8,7 @@ using testing.Application.Models.UserSchedule;
 using testing.Application.Models.UserScheduleSection;
 using testing.Application.Utils.SessionHandler;
 using testing.Domain.Entities;
-using testing.Domain.Repositories;
+using testing.Domain.Repositories.Persistance;
 using testing.Domain.Settings;
 
 namespace testing.Application.Services.Persistance

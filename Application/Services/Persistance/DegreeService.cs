@@ -3,7 +3,7 @@ using testing.Application.Contracts.Persistance;
 using testing.Application.Core;
 using testing.Application.Models.Degree;
 using testing.Domain.Entities;
-using testing.Domain.Repositories;
+using testing.Domain.Repositories.Persistance;
 
 namespace testing.Application.Services.Persistance
 {

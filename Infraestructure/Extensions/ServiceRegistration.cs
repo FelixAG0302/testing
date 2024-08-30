@@ -4,7 +4,7 @@ using Infraestructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using testing.Domain.Repositories;
+using testing.Domain.Repositories.Persistance;
 using testing.Infraestructure.Repositries;
 
 namespace testing.Infraestructure.Extensions
