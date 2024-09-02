@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 using testing.Application.Contracts.Persistance;
 using testing.Application.Services.Persistance;
@@ -12,7 +13,7 @@ namespace testing.Application.Extensions
     {
         public static void AddApplicationLayer(this IServiceCollection services, IConfiguration confi)
         {
-
+            services.AddOptions<SessionKeys>();
             services.Configure<SessionKeys>(confi.GetSection("SessionKeys"));
 
 
