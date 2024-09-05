@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,11 @@ using testing.Domain.Entities;
 
 namespace testing.Application.Utils.Mapper
 {
-    public class GeneralProfile : Profile
+    public static class GeneralProfile 
     {
-        public GeneralProfile()
+       public static void Configure()
         {
-            #region Classroom mappigns settup configuration
-            CreateMap< ClassRoom, ClassRoomModel>()
-                .ForMember(dest => dest.ClassRoomSubjects, otp => otp.MapFrom(c => c.ClassRoomSubjects))
-                .ReverseMap();
-
-            CreateMap<ClassRoom, SaveClassRoomModel>()
-              .ReverseMap();
-            #endregion
+            TypeAdapterConfig<ClassRoom, ClassRoomModel>.NewConfig();
         }
     }
 }

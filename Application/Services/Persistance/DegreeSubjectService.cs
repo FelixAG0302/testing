@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using MapsterMapper;
 using testing.Application.Contracts.Persistance;
 using testing.Application.Core;
 using testing.Application.Models.DegreeSubject;

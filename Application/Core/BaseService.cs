@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using MapsterMapper;
 using testing.Domain.Core;
 
 namespace testing.Application.Core

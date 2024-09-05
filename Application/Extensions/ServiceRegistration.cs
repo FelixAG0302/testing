@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using testing.Application.Contracts.Persistance;
 using testing.Application.Services.Persistance;
 using testing.Domain.Settings;
+using Mapster;
+using testing.Application.Utils.Mapper;
 
 
 namespace testing.Application.Extensions
@@ -24,7 +26,8 @@ namespace testing.Application.Extensions
             services.AddTransient<ITeacherSubjectService, TeacherSubjectService>();
             services.AddTransient<IUserScheduleService, UserScheduleService>();
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddMapster();
+            GeneralProfile.Configure();
 
 
 

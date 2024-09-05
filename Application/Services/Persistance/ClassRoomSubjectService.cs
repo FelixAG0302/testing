@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using MapsterMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using testing.Application.Contracts.Persistance;

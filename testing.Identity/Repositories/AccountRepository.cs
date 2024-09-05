@@ -1,6 +1,4 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Identity;
-using System.Drawing.Printing;
+﻿using Microsoft.AspNetCore.Identity;
 using testing.Domain.Model;
 using testing.Domain.Repositories.Identity;
 using testing.Identity.Entities;
@@ -53,6 +51,7 @@ namespace testing.Identity.Repositories
             responce.IsActive = userToBeAuthenticated.EmailConfirmed;
             IList<string> Roles = await _userManager.GetRolesAsync(userToBeAuthenticated);
             responce.Roles = Roles.ToList();
+           
 
             return responce;
         }
@@ -74,7 +73,7 @@ namespace testing.Identity.Repositories
             if (user is not null)
             {
                 responce.HasError = true;
-                responce.ErrorMessage = @$"There is a user with the user name: {userToBeRegisterd.UserName}";
+                responce.ErrorMessage = $"There is a user with the user name: {userToBeRegisterd.UserName}";
                 return responce;
             }
 
@@ -87,7 +86,6 @@ namespace testing.Identity.Repositories
                 BirthDay = userToBeRegisterd.BirthDay,
                 UserName = userToBeRegisterd.UserName,
                 PhoneNumber = userToBeRegisterd.PhoneNumber,
-
             };
             
             responce = await _registrationHandler.Register(Role, user, userToBeRegisterd.Password);
