@@ -11,6 +11,7 @@ namespace testing.Identity.Entities
         [StringLength(11, ErrorMessage = "A cedula is 11 character long")]
         public string Cedula { get; set; }
 
+        // Add matricula to all the places where it needs to be 
         public DateTime BirthDay { get; set; }
     }
 }

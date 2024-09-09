@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MapsterMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using testing.Application.Contracts.Identity;
 using testing.Application.Core;
@@ -13,53 +14,60 @@ namespace testing.Application.Services.Identity
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IMapper _mapper;
         private readonly ISession _session;
 
         private readonly SessionKeys _sessionKeys;
 
 
-        public AccountService(IAccountRepository accountRepository, ISession session, IOptions<SessionKeys> sessionskeys)
+        public AccountService(IAccountRepository accountRepository,IMapper mapper, ISession session, IOptions<SessionKeys> sessionskeys)
         {
             _accountRepository = accountRepository;
+            _mapper = mapper;
             _session = session;
             _sessionKeys = sessionskeys.Value;
         }
 
         public async Task<Result> AuthenticateUserAsync(string usernameOrEmail, string password)
         {
-            Result result = new();
             try
             {
-                if (usernameOrEmail == null && password == null)
-                {
-                    result.IsSuccess = false;
-                    result.Message = "The inputs cant be empty";
-                    return result;
-                }
+                if (usernameOrEmail == null && password == null) return new("The inputs cant be empty", false);
+            
                 AuthenticationResponce operationSuccess = await _accountRepository.AuthenticateAsync(new Domain.Model.AuthenticationRequest { UserNameOrEmail = usernameOrEmail, Password = password});
 
-                if (operationSuccess.HasError)
-                {
-                    result.IsSuccess = false;
-                    result.Message = operationSuccess.ErrorMessage;
-                    return result;
-                }
+                if (operationSuccess.HasError) return new(operationSuccess.ErrorMessage, false);
+             
                 _session.Set<AuthenticationResponce>( operationSuccess, _sessionKeys.UserKey);
 
-                result.Message = "User was Log successfully";
-                return result;
+                return new("User was Log successfully");
             }
             catch
             {
-                result.IsSuccess = false;
-                result.Message = "Critical error login in the user ";
-                return result;
+                return new("Critical error login in the user", false);
             }
         }
 
-        public Task<Result> RegisterAsync(SaveUserModel user)
+        public async Task<Result> RegisterAsync(SaveUserModel user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (user == null) 
+                    return new("The user to be registerd cant be null", false);
+
+                RegisterRequest request = _mapper.Map<RegisterRequest>(user);
+
+                RegisterResponce operationResponce = await _accountRepository.RegisterAsync(user.Role, request);
+
+                return operationResponce.HasError ? new(operationResponce.ErrorMessage, false) 
+                    : new("User register was succesfull");
+            }
+            catch
+            {
+                return new("Critical error while registering the user", false);
+            }
         }
+
+
     }
 }

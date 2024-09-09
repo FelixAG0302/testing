@@ -1,8 +1,8 @@
 ﻿using Infraestructure.Context;
-using Infraestructure.Core;
 using Microsoft.EntityFrameworkCore;
 using testing.Domain.Entities;
 using testing.Domain.Repositories.Persistance;
+using testing.Infraestructure.Core;
 
 namespace testing.Infraestructure.Repositries
 {

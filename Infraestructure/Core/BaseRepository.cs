@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using testing.Domain.Core;
 
-namespace Infraestructure.Core
+namespace testing.Infraestructure.Core
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         where TEntity : class
@@ -23,7 +23,7 @@ namespace Infraestructure.Core
         {
             try
             {
-                _entities.Add(entity);
+                await _entities.AddAsync(entity);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -75,6 +75,11 @@ namespace Infraestructure.Core
         public virtual async Task<TEntity> GetByIdAsync(int id)
         {
             return await _entities.FindAsync(id);
+        }
+
+        public async Task<IQueryable<TEntity>> GetQuerableEntity()
+        {
+            return await Task.FromResult(_entities);
         }
 
         public virtual async Task<bool> UpdateAsync(TEntity entity)

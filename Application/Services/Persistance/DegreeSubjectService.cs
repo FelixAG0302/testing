@@ -8,7 +8,7 @@ using testing.Domain.Repositories.Persistance;
 
 namespace testing.Application.Services.Persistance
 {
-    internal class DegreeSubjectService: BaseService<SaveDegreeSubjectModel,DegreeSubject>, IDegreeSubjectService
+    public class DegreeSubjectService: BaseService<SaveDegreeSubjectModel,DegreeSubject>, IDegreeSubjectService
     {
         private readonly IDegreeSubjectRepository _degreeSubjectRepository;
         public DegreeSubjectService(IDegreeSubjectRepository degreeSubjectRepository, IMapper mapper) : base (degreeSubjectRepository, mapper)

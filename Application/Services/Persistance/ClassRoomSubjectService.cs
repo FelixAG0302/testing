@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using testing.Application.Contracts.Persistance;
 using testing.Application.Core;
-using testing.Application.Models.ClassRoom;
+
 using testing.Application.Models.ClassroomSubject;
 using testing.Application.Utils.SessionHandler;
 using testing.Domain.Entities;
@@ -30,56 +30,38 @@ namespace testing.Application.Services.Persistance
             _currentUserInfo = session.Get<AuthenticationResponce>(_sessionKeys.UserKey);
         }
 
-        public async Task<Result<List<ClassRoomSubject>>> FilterAsync(FilterClassRoomSubjectModel filterModel)
+        public async Task<Result<List<ClassRoomSubjectModel>>> FilterAsync(FilterClassRoomSubjectModel filterModel)
         {
-            Result<List<ClassRoomSubject>> result = new();
             try
             {
                 List<ClassRoomSubject> entitiesGetted = await _classRoomSubjectRepository.Filter(filterModel.degreeId, filterModel.TeacherId, filterModel.ClassRoomCode, filterModel.Day);
 
-                List<ClassRoomModel> mappedEntities = _mapper.Map<List<ClassRoomModel>>(entitiesGetted);
-
-                result.Message = "Filter Succesfull";
-                return result;
+                return new("Filter Succesfull", _mapper.Map<List<ClassRoomSubjectModel>>(entitiesGetted));
             }
             catch
             {
-                result.IsSuccess = false;
-                result.Message = "Critical error filtering the sections";
-                return result;
+                return new("Critical error filtering the sections", false);
             }
         }
 
         public async Task<Result<List<ClassRoomSubjectModel>>> GetTeachesSectionAsync()
         {
-            Result<List<ClassRoomSubjectModel>> result = new();
-            if (_currentUserInfo == null)
-            {
-                result.IsSuccess = false;
-                result.Message = "There is no user loged in";
-                return result;
-            }
-            if(_currentUserInfo.Roles.Any(u => u == nameof(Roles.Teacher)))
-            {
-                result.IsSuccess = false;
-                result.Message = "only teachers can access this resource";
-                return result;
-            }
+
+            if (_currentUserInfo == null) 
+                return new("There is no user loged in", false);
+
+            if (_currentUserInfo.Roles.Any(u => u == nameof(Roles.Teacher))) 
+                return new("only teachers can access this resource", false);   
+
             try
             {
-
                 List<ClassRoomSubject> entitiesGetted = await _classRoomSubjectRepository.GetAllByUserIdAsync(_currentUserInfo.Id);
 
-                result.Data = _mapper.Map<List<ClassRoomSubjectModel>>(entitiesGetted);
-
-                result.Message = "Teachers sections were getted successfully";
-                return result;
+                return new("Teachers sections were getted successfully", _mapper.Map<List<ClassRoomSubjectModel>>(entitiesGetted));
             }
             catch
             {
-                result.IsSuccess = false;
-                result.Message = "Critical error while getting the entities";
-                return result;
+                return new("Critical error while getting the entities", false);
             }
         }
     }

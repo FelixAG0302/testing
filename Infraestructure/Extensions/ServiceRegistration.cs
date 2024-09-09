@@ -1,5 +1,4 @@
 ﻿
-
 using Infraestructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

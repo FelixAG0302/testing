@@ -18,50 +18,35 @@ namespace testing.Application.Core
         }   
         public virtual async Task<Result> SaveAsync(TSaveModel entity)
         {
-            Result result = new();
             try
             {
-                //validacion
-                if (entity == null) {
-                    result.IsSuccess = false;
-                    result.Message = "The entity to be saved cant be null";
-                    return result;
-                }
+                if (entity == null) return new("The entity to be saved cant be null", false);
 
                 TEntity entityToBeSave = _mapper.Map<TEntity>(entity);
 
-                await _baseRepository.SaveAsync(entityToBeSave);
+                bool isSaveOperationASuccess = await _baseRepository.SaveAsync(entityToBeSave);
 
-                result.Message = "entity saved was succesfull";
-                return result;
+                return isSaveOperationASuccess ? new("entity saved was succesfull") : new("Error while saving the entity", false);
             }
             catch
             {
-                result.IsSuccess = false;
-                result.Message = "Critical error saving the entity";
-                return result;
+                return new("Critical error saving the entity", false);
             }
         }
         public virtual async Task<Result> DeleteAsync(int Id)
         {
-            Result result = new();
             try
             {
-                bool deleteOperation = await _baseRepository.DeleteAsync(Id);
-                if (!deleteOperation)
-                {
-                    result.IsSuccess = false;
-                    result.Message = "Error while deleting the entity";
-                    return result;
-                }
-                result.Message = "Entity Was successfully deleted";
-                return result;
+                if ( Id <= 0) return new( "Id cant be null", isSuccess: false);
+
+                bool isDeleteOperationASuccess = await _baseRepository.DeleteAsync(Id);
+
+                return isDeleteOperationASuccess ? new("Entity Was successfully deleted") 
+                    : new("Error while deleting the entity",  false);
             }
             catch
             {
-                result.IsSuccess = false;
-                result.Message = "Critical error while attempting to delete the entity";
-                return result;
+                return new("Critical error while attempting to delete the entity", isSuccess: false);
             }
         }
 
@@ -83,74 +68,52 @@ namespace testing.Application.Core
 
         public virtual async Task<Result<List<TModel>>> GetAllAsync()
         {
-            Result<List<TModel>> result = new();
             try
             {
                 List<TEntity> entitesGetted = await _baseRepository.GetAllAsync();
-                result.Data = _mapper.Map<List<TModel>>(entitesGetted);
-                result.Message = "The entities were successfull";
-                return result;
+
+                return new("The entities were successfull", _mapper.Map<List<TModel>>(entitesGetted));
             }
             catch
             {
-                result.IsSuccess = false;
-                result.Message = "Critical error while getting the entities";
-                return result;
+                return new("Critical error while getting the entities",false);
             }
         }
 
         public virtual async Task<Result<TModel>> GetByIdAsync(int id)
         {
-            Result<TModel> result = new();
             try
             {
-                if (id == default || id < 0)
-                {
-                    result.IsSuccess = false;
-                    result.Message = "The id is null";
-                    return result;
-                }
+                if (id == default || id < 0) return new( "The id is null",false);
+
                 TEntity entityGetted = await _baseRepository.GetByIdAsync(id);
-                if (entityGetted == null)
-                {
-                    result.IsSuccess = false;
-                    result.Message = "The entity wasn't found";
-                    return result;
-                }
-                result.Data = _mapper.Map<TModel>(entityGetted);
-                result.Message = "The search was successfull";
-                return result;
+
+                if (entityGetted == null) return new("The entity wasn't found", false);
+               
+                return new("The search was successfull", _mapper.Map<TModel>(entityGetted));
             }
             catch
             {
-                result.IsSuccess = false;
-                result.Message = "Crticial error while getting by id";
-                return result;
+                return new( "Crticial error while getting the entity by id", false);
             }
         }
 
         public virtual async Task<Result> UpdateAsync(TSaveModel entity)
         {
-            Result result = new();
             try
             {
-                if (entity == null)
-                {
-                    result.IsSuccess = false;
-                    result.Message = "The entity is null";
-                    return result;
-                }
+                if (entity == null) return new("The entity is null", false);
+              
                 TEntity entityForUpdate = _mapper.Map<TEntity>(entity);
-                await _baseRepository.UpdateAsync(entityForUpdate);
-                result.Message = "The update was successfull";
-                return result;
 
+                bool isUpdateOperationASuccess = await _baseRepository.UpdateAsync(entityForUpdate);
+
+                return isUpdateOperationASuccess ? new("The update was successfull") 
+                    : new( "Error while updating the entity",false);
             }
             catch
             {
-                result.IsSuccess = false;
-                result.Message = "Critical error";
-                return result;
+                return new("Critical error while updating the entity", false);
             }
         }
     }
