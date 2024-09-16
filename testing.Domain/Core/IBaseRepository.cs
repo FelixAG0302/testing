@@ -15,6 +15,6 @@ namespace testing.Domain.Core
         Task<List<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(int id);   
         Task<bool> UpdateAsync(TEntity entity);
-        Task<IQueryable<TEntity>> GetQuerableEntity();
+            Task<IQueryable<TEntity>> GetQuerableEntity();
     }
 }
