@@ -25,7 +25,7 @@ namespace testing.Application.Extensions
             services.AddTransient<IDegreeSubjectService, DegreeSubjectService>();
             services.AddTransient<ITeacherSubjectService, TeacherSubjectService>();
             services.AddTransient<IUserScheduleService, UserScheduleService>();
-
+            services.AddTransient<IUserDegreeService, UserDegreeService>();
             services.AddMapster();
             GeneralProfile.Configure();
 

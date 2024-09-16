@@ -7,6 +7,7 @@ namespace testing.Domain.Repositories.Identity
     {
         Task<AuthenticationResponce> AuthenticateAsync(AuthenticationRequest authenticationRequest);
         Task<RegisterResponce> RegisterAsync(string Role, RegisterRequest userToBeRegisterd);
+        Task LogOutAsync();
 
     }
 }

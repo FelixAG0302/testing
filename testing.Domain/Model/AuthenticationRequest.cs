@@ -18,6 +18,7 @@ namespace testing.Domain.Model
         public string UserName { get; set; }
         public bool IsActive { get; set; }
         public List<string> Roles { get; set; }
+        public int DegreeId { get; set; }
     }
     public class RegisterRequest
     {

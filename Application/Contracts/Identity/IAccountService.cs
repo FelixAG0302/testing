@@ -9,5 +9,7 @@ namespace testing.Application.Contracts.Identity
     {
         Task<Result> AuthenticateUserAsync(string usernameOrEmail, string password);
         Task<Result> RegisterAsync(SaveUserModel user);
+        Task<Result> SignOutAsync();
+
     }
 }

@@ -6,5 +6,6 @@ namespace testing.Application.Contracts.Persistance
 {
     internal interface IUserDegreeService : IBaseService<SaveUserDegreeModel>
     {
+        internal Task<Result<UserDegreeModel>> GetByUserId(string userId);
     }
 }

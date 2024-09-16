@@ -56,6 +56,11 @@ namespace testing.Identity.Repositories
             return responce;
         }
 
+        public async Task LogOutAsync()
+        {
+             await _signInManager.SignOutAsync();
+        }
+
         public async Task<RegisterResponce> RegisterAsync(string Role, RegisterRequest userToBeRegisterd)
         {
             RegisterResponce responce = new();
