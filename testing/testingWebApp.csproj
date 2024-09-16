@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -14,7 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application\testing.Application.csproj" />
     <ProjectReference Include="..\Infraestructure\testing.Infraestructure.csproj" />
+    <ProjectReference Include="..\testing.Domain\testing.Domain.csproj" />
+    <ProjectReference Include="..\testing.Identity\testing.Identity.csproj" />
   </ItemGroup>
 
 </Project>
