@@ -1,9 +1,11 @@
 using testing.Infraestructure.Extensions;
+using testing.Application.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfraestructureLayer(builder.Configuration);
+builder.Services.AddApplicationLayer(builder.Configuration);
 
 
 

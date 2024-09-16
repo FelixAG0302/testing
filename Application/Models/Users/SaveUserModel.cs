@@ -7,5 +7,6 @@ namespace testing.Application.Models.Users
         public string Role {  get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+        public int DegreeId { get; set; }   
     }
 }
