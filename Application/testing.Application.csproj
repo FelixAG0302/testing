@@ -7,9 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\**" />
+    <EmbeddedResource Remove="Features\**" />
+    <None Remove="Features\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Dtos\Indentity\Entity\" />
     <Folder Include="Dtos\Persistance\" />
-    <Folder Include="Features\" />
   </ItemGroup>
 
   <ItemGroup>

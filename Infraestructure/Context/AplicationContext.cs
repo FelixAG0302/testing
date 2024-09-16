@@ -12,7 +12,7 @@ namespace Infraestructure.Context
         public DbSet<DegreeSubject> DegreeSubject { get; set; }
         public DbSet<ClassRoom> ClassRoom { get; set; }
         public DbSet<ClassRoomSubject> ClassRoomSubject { get; set; }
-
+        public DbSet<UserDegree> UserDegrees { get; set; }
 
         public AplicationContext()
         {

@@ -1,5 +1,7 @@
 ﻿
 using MapsterMapper;
+using testing.Application.Extensions;
+using testing.Application.Utils.Enums;
 using testing.Domain.Core;
 
 namespace testing.Application.Core
@@ -20,33 +22,33 @@ namespace testing.Application.Core
         {
             try
             {
-                if (entity == null) return new("The entity to be saved cant be null", false);
+                if (entity == null) return ErrorTypes.Validation.Because("The entity to be saved cant be null"); 
 
                 TEntity entityToBeSave = _mapper.Map<TEntity>(entity);
 
                 bool isSaveOperationASuccess = await _baseRepository.SaveAsync(entityToBeSave);
 
-                return isSaveOperationASuccess ? new("entity saved was succesfull") : new("Error while saving the entity", false);
+                return !isSaveOperationASuccess ? 
+                    ErrorTypes.OperationError.Because("Error while saving the entity") : new("entity saved was succesfull") ;
             }
             catch
             {
-                return new("Critical error saving the entity", false);
+              return ErrorTypes.Exceptions.Because("Critical error saving the entity");
             }
         }
         public virtual async Task<Result> DeleteAsync(int Id)
         {
             try
             {
-                if ( Id <= 0) return new( "Id cant be null", isSuccess: false);
+                if (Id <= 0) return ErrorTypes.Validation.Because("Id cant be null");
 
                 bool isDeleteOperationASuccess = await _baseRepository.DeleteAsync(Id);
 
-                return isDeleteOperationASuccess ? new("Entity Was successfully deleted") 
-                    : new("Error while deleting the entity",  false);
+                return !isDeleteOperationASuccess ? ErrorTypes.OperationError.Because("Error while deleting the entity") : new("Entity Was successfully deleted");
             }
             catch
             {
-                return new("Critical error while attempting to delete the entity", isSuccess: false);
+                return ErrorTypes.Exceptions.Because("Critical error while attempting to delete the entity");
             }
         }
 
@@ -72,11 +74,11 @@ namespace testing.Application.Core
             {
                 List<TEntity> entitesGetted = await _baseRepository.GetAllAsync();
 
-                return new("The entities were successfull", _mapper.Map<List<TModel>>(entitesGetted));
+                return  _mapper.Map<List<TModel>>(entitesGetted);
             }
             catch
             {
-                return new("Critical error while getting the entities",false);
+                return ErrorTypes.Exceptions.Because("Critical error while getting the entities");
             }
         }
 
@@ -84,17 +86,19 @@ namespace testing.Application.Core
         {
             try
             {
-                if (id == default || id < 0) return new( "The id is null",false);
+                if (id <= 0) 
+                    return ErrorTypes.Validation.Because("The id is null");
 
                 TEntity entityGetted = await _baseRepository.GetByIdAsync(id);
 
-                if (entityGetted == null) return new("The entity wasn't found", false);
+                if (entityGetted == null) 
+                    return ErrorTypes.OperationError.Because("The entity wasn't found");
                
-                return new("The search was successfull", _mapper.Map<TModel>(entityGetted));
+                return  _mapper.Map<TModel>(entityGetted);
             }
             catch
             {
-                return new( "Crticial error while getting the entity by id", false);
+                return ErrorTypes.Exceptions.Because("Crticial error while getting the entity by id");
             }
         }
 
@@ -102,18 +106,19 @@ namespace testing.Application.Core
         {
             try
             {
-                if (entity == null) return new("The entity is null", false);
+                if (entity == null) 
+                    return ErrorTypes.Validation.Because("The entity is null");
               
                 TEntity entityForUpdate = _mapper.Map<TEntity>(entity);
 
                 bool isUpdateOperationASuccess = await _baseRepository.UpdateAsync(entityForUpdate);
 
-                return isUpdateOperationASuccess ? new("The update was successfull") 
-                    : new( "Error while updating the entity",false);
+                return !isUpdateOperationASuccess ? ErrorTypes.OperationError.Because("Error while updating the entity")
+                    : new("The update was successfull");
             }
             catch
             {
-                return new("Critical error while updating the entity", false);
+                return ErrorTypes.Exceptions.Because("Critical error while updating the entity");
             }
         }
     }

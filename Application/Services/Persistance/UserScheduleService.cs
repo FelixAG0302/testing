@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using testing.Application.Contracts.Persistance;
 using testing.Application.Core;
+using testing.Application.Extensions;
 using testing.Application.Models.UserSchedule;
+using testing.Application.Utils.Enums;
 using testing.Application.Utils.SessionHandler;
 using testing.Domain.Entities;
 using testing.Domain.Model;
@@ -29,10 +31,12 @@ namespace testing.Application.Services.Persistance
 
         public async Task<Result<List<UserScheduleModel>>> GetClientUsersSchedules()
         {
-            if (_currentUserInfoInSession == null) return new("There is no current user authenticated", false);
+            if (_currentUserInfoInSession == null)
+                return ErrorTypes.NoAuthenticated.Because("There is no current user authenticated");
 
             // Validate user rol and credentials
-            if (_currentUserInfoInSession.Roles.Any(u => u == nameof(Roles.Client))) return new("Only client users can access this resource", false);
+            if (_currentUserInfoInSession.Roles.Any(u => u == nameof(Roles.Client)))
+                return ErrorTypes.NoAuthorize.Because("Only client users can access this resource");
 
             try
             {
@@ -42,7 +46,7 @@ namespace testing.Application.Services.Persistance
             }
             catch
             {
-                return new("A critical error has ocurred", false);
+                return ErrorTypes.Exceptions.Because("A critical error has ocurred");
             }
         }
 

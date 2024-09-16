@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using testing.Application.Contracts.Identity;
 using testing.Application.Core;
+using testing.Application.Extensions;
 using testing.Application.Models.Users;
+using testing.Application.Utils.Enums;
 using testing.Application.Utils.SessionHandler;
 using testing.Domain.Model;
 using testing.Domain.Repositories.Identity;
@@ -32,11 +34,13 @@ namespace testing.Application.Services.Identity
         {
             try
             {
-                if (usernameOrEmail == null && password == null) return new("The inputs cant be empty", false);
+                if (usernameOrEmail == null && password == null) 
+                    return ErrorTypes.Validation.Because("The inputs cant be empty");
             
                 AuthenticationResponce operationSuccess = await _accountRepository.AuthenticateAsync(new Domain.Model.AuthenticationRequest { UserNameOrEmail = usernameOrEmail, Password = password});
 
-                if (operationSuccess.HasError) return new(operationSuccess.ErrorMessage, false);
+                if (operationSuccess.HasError) 
+                    return ErrorTypes.OperationError.Because(operationSuccess.ErrorMessage);
              
                 _session.Set<AuthenticationResponce>( operationSuccess, _sessionKeys.UserKey);
 
@@ -44,7 +48,7 @@ namespace testing.Application.Services.Identity
             }
             catch
             {
-                return new("Critical error login in the user", false);
+                return ErrorTypes.Exceptions.Because("Critical error login in the user");
             }
         }
 
@@ -52,19 +56,19 @@ namespace testing.Application.Services.Identity
         {
             try
             {
-                if (user == null) 
-                    return new("The user to be registerd cant be null", false);
+                if (user == null)
+                    return ErrorTypes.Validation.Because("The user to be registerd cant be null");
 
                 RegisterRequest request = _mapper.Map<RegisterRequest>(user);
 
                 RegisterResponce operationResponce = await _accountRepository.RegisterAsync(user.Role, request);
 
-                return operationResponce.HasError ? new(operationResponce.ErrorMessage, false) 
+                return operationResponce.HasError ? ErrorTypes.OperationError.Because(operationResponce.ErrorMessage) 
                     : new("User register was succesfull");
             }
             catch
             {
-                return new("Critical error while registering the user", false);
+                return ErrorTypes.Exceptions.Because("Critical error while registering the user");
             }
         }
 

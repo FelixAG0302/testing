@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using testing.Application.Contracts.Persistance;
 using testing.Application.Core;
-
+using testing.Application.Extensions;
 using testing.Application.Models.ClassroomSubject;
+using testing.Application.Utils.Enums;
 using testing.Application.Utils.SessionHandler;
 using testing.Domain.Entities;
 using testing.Domain.Model;
@@ -40,18 +41,18 @@ namespace testing.Application.Services.Persistance
             }
             catch
             {
-                return new("Critical error filtering the sections", false);
+                return ErrorTypes.Exceptions.Because("Critical error filtering the sections");
             }
         }
 
         public async Task<Result<List<ClassRoomSubjectModel>>> GetTeachesSectionAsync()
         {
 
-            if (_currentUserInfo == null) 
-                return new("There is no user loged in", false);
+            if (_currentUserInfo == null)
+                return ErrorTypes.NoAuthenticated.Because("There is no user logged in");
 
-            if (_currentUserInfo.Roles.Any(u => u == nameof(Roles.Teacher))) 
-                return new("only teachers can access this resource", false);   
+            if (_currentUserInfo.Roles.Any(u => u == nameof(Roles.Teacher)))
+                return ErrorTypes.NoAuthorize.Because("only teachers can access this resource");  
 
             try
             {
@@ -61,7 +62,7 @@ namespace testing.Application.Services.Persistance
             }
             catch
             {
-                return new("Critical error while getting the entities", false);
+                return ErrorTypes.Exceptions.Because("Critical error while getting the entities");
             }
         }
     }
