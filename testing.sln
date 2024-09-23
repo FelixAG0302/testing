@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testing.Domain", "testing.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testing.Infraestructure", "Infraestructure\testing.Infraestructure.csproj", "{CB14C76E-837D-4F55-9225-0F30E2117D3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testing.Application", "Application\testing.Application.csproj", "{6AAD8A88-789A-4D64-8838-DD2FA5637FFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testing.Application", "Application\testing.Application.csproj", "{6AAD8A88-789A-4D64-8838-DD2FA5637FFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testingWebApi", "WebApi\testingWebApi.csproj", "{D7C3FC0C-CD3F-4049-835E-216E29C52123}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testingWebApi", "WebApi\testingWebApi.csproj", "{D7C3FC0C-CD3F-4049-835E-216E29C52123}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sourse", "sourse", "{3C4FE9A1-3EFD-49CC-A084-F3AD5CF7A7BE}"
 EndProject
@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{E53BDC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{2ED7CEFE-FDFB-4807-8D31-8A354712654D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testing.Identity", "testing.Identity\testing.Identity.csproj", "{0C3707D5-33B3-4278-8498-C291C0CF8E87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testing.Identity", "testing.Identity\testing.Identity.csproj", "{0C3707D5-33B3-4278-8498-C291C0CF8E87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

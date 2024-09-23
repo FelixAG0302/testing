@@ -21,7 +21,7 @@ namespace testing.Infraestructure.Repositries
 
             if (degreeId > 0)
             {
-                query = query.Where(c => c.degreeId == degreeId);
+                query = query.Where(c => c.DegreeId == degreeId);
             }
             if (TeacherId != default)
             {
@@ -38,12 +38,29 @@ namespace testing.Infraestructure.Repositries
             return await Task.FromResult(query.ToList());
         }
 
+        public override async Task<List<ClassRoomSubject>> GetAllAsync()
+        {
+            return await _context.ClassRoomSubject.Include(s => s.Subject)
+                .Include(c => c.ClassRoom)
+                .Include(d => d.Degree)
+                .Include(d => d.DayOfWeek).ToListAsync();
+        }
+
         public async Task<List<ClassRoomSubject>> GetAllByUserIdAsync(string id)
         {
             return await _context.ClassRoomSubject.Include(s => s.Subject)
                 .Include(c => c.ClassRoom)
-                .Include(d => d.degree)
+                .Include(d => d.Degree)
+                .Include(d => d.DayOfWeek)
                 .Where(c => c.TeacherId == id).ToListAsync();
+        }
+
+        public override async Task<ClassRoomSubject> GetByIdAsync(int id)
+        {
+            return await _context.ClassRoomSubject.Include(s => s.Subject)
+                .Include(c => c.ClassRoom)
+                .Include(d => d.Degree)
+                .Include(d => d.DayOfWeek).FirstOrDefaultAsync();
         }
 
         public override async Task<bool> UpdateAsync(ClassRoomSubject entity)
@@ -58,6 +75,7 @@ namespace testing.Infraestructure.Repositries
             classRoomSubjectToBeUpdated.Day = classRoomSubjectToBeUpdated.Day;
             classRoomSubjectToBeUpdated.ClassRoomId = entity.ClassRoomId;
             classRoomSubjectToBeUpdated.TeacherId = entity.TeacherId;
+            classRoomSubjectToBeUpdated.TeacherName = entity.TeacherName;
 
             return await base.UpdateAsync(classRoomSubjectToBeUpdated);
         }

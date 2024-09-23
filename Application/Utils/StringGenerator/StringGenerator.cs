@@ -30,8 +30,7 @@ namespace testing.Application.Utils.StringGenerator
         {
             StringBuilder sectionGruop = new();
             sectionGruop.Append("GP");
-            int lengthOfNumberToUse = Random.Next(4);
-            for(int i =0; i < lengthOfNumberToUse; i++)
+            for(int i =0; i < 4; i++)
             {
                 sectionGruop.Append(NumbersToBuildRandomString[Random.Next(NumbersToBuildRandomString.Length - 1)]);
             }

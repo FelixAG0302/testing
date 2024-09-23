@@ -22,14 +22,16 @@ namespace testing.Application.Core
         {
             try
             {
-                if (entity == null) return ErrorTypes.Validation.Because("The entity to be saved cant be null"); 
+                if (entity == null) 
+                    return ErrorTypes.Validation.Because("The entity to be saved cant be null"); 
 
                 TEntity entityToBeSave = _mapper.Map<TEntity>(entity);
 
                 bool isSaveOperationASuccess = await _baseRepository.SaveAsync(entityToBeSave);
 
                 return !isSaveOperationASuccess ? 
-                    ErrorTypes.OperationError.Because("Error while saving the entity") : new("entity saved was succesfull") ;
+                    ErrorTypes.OperationError.Because("Error while saving the entity") : 
+                    Result.Success("entity saved was succesfull");
             }
             catch
             {
@@ -44,7 +46,9 @@ namespace testing.Application.Core
 
                 bool isDeleteOperationASuccess = await _baseRepository.DeleteAsync(Id);
 
-                return !isDeleteOperationASuccess ? ErrorTypes.OperationError.Because("Error while deleting the entity") : new("Entity Was successfully deleted");
+                return !isDeleteOperationASuccess ? 
+                    ErrorTypes.OperationError.Because("Error while deleting the entity") : 
+                    Result.Success("Entity Was successfully deleted");
             }
             catch
             {
@@ -113,8 +117,9 @@ namespace testing.Application.Core
 
                 bool isUpdateOperationASuccess = await _baseRepository.UpdateAsync(entityForUpdate);
 
-                return !isUpdateOperationASuccess ? ErrorTypes.OperationError.Because("Error while updating the entity")
-                    : new("The update was successfull");
+                return !isUpdateOperationASuccess ? 
+                    ErrorTypes.OperationError.Because("Error while updating the entity") : 
+                    Result.Success("The update was successfull");
             }
             catch
             {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using testing.Domain.Entities;
+using testing.Domain.Entities.ContextEntities;
 
 namespace Infraestructure.Context
 {
@@ -13,6 +14,8 @@ namespace Infraestructure.Context
         public DbSet<ClassRoom> ClassRoom { get; set; }
         public DbSet<ClassRoomSubject> ClassRoomSubject { get; set; }
         public DbSet<UserDegree> UserDegrees { get; set; }
+        public DbSet<UserScheduleSection> ScheduleSections { get; set; }
+        public DbSet<DayOfTheWeek> DayOfTheWeek { get; set; }
 
         public AplicationContext()
         {

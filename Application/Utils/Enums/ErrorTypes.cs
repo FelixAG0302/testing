@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace testing.Application.Utils.Enums
 {
-    internal enum ErrorTypes
+    public enum ErrorTypes
     {
+        None,
         Validation,
         Exceptions,
         DateConfilct,
